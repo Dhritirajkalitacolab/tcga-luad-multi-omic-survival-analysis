@@ -11,7 +11,7 @@ A reproducible pipeline that builds and validates a survival model for lung aden
 | Gene-expression signature (LASSO-Cox, selected from 158 candidate genes) | Train 0.722 → Test **0.538** | Not carried forward — did not generalize |
 | Clinical covariate model (age + sex + grouped stage) | Test **0.608** | **0.708** (n = 204, 30 events) |
 
-The LASSO signature looked strong on training data (C=0.722) but collapsed on the held-out test set (C=0.538) — a textbook overfitting signal, given 158 candidate genes against only 123 death events in the whole 496-patient cohort (and fewer in the training split). One bounded refinement was run: shrinking the candidate pool from 158 to the top 20 genes (LASSO kept 5) still failed on the held-out test set (C=0.541), and a Random Survival Forest also failed (test C=0.437). **This is reported as a genuine negative finding**, not hidden or re-tuned until it looked better.
+The LASSO signature looked strong on training data (C=0.722) but collapsed on the held-out test set (C=0.538) — a textbook overfitting signal, given 158 candidate genes against only 123 death events among the 339 training patients with complete clinical data. One bounded refinement was run: shrinking the candidate pool from 158 to the top 20 genes (LASSO kept 5) still failed on the held-out test set (C=0.541), and a Random Survival Forest also failed (test C=0.437). **This is reported as a genuine negative finding**, not hidden or re-tuned until it looked better.
 
 The plain clinical model — age, sex, and a 4-level collapsed AJCC stage — held up. It was deployed, and its coefficients are the ones exported and served by the API in this repo.
 
